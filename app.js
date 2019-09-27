@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Recipe = require('./models/recipe')
+const Recipe = require('./models/recipe');
 
 // connect mongoose to mongoDB database server
 mongoose
@@ -16,8 +16,6 @@ mongoose
     console.log('Unable to connect to MongoDB Atlas!');
     console.error(error);
   });
-
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -36,7 +34,18 @@ app.use((req, res, next) => {
   next();
 });
 
-
+// handles display of all recipe
+app.get('/api/recipes', (req, res, next) => {
+  Recipe.find()
+    .then(things => {
+      res.status(200).json(things);
+    })
+    .catch(error => {
+      res.status(400).json({
+        error: error
+      });
+    });
+});
 
 
 
