@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const Recipe = require('./models/recipe')
 
 // connect mongoose to mongoDB database server
 mongoose
@@ -34,6 +35,9 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+
+
 
 
 module.exports = app;
