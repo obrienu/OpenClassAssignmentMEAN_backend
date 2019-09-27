@@ -85,4 +85,28 @@ app.get('/api/recipes/:id', (req, res, next) => {
     });
 });
 
+// Add a put route to enable editting of individual recipe
+
+app.put('/api/recipes/:id', (req, res, next) => {
+  const recipe = new Recipe({
+    _id: req.params.id,
+    title: req.body.title,
+    ingredients: req.body.ingredients,
+    instructions: req.body.instructions,
+    time: req.body.time,
+    difficulty: req.body.difficulty
+  });
+  Recipe.updateOne({ _id: req.params.id }, recipe)
+    .then(() => {
+      res.status(201).json({
+        message: 'Thing updated successfully!'
+      });
+    })
+    .catch(error => {
+      res.status(400).json({
+        error: error
+      });
+    });
+});
+
 module.exports = app;
