@@ -71,4 +71,18 @@ app.post('/api/recipes', (req, res, next) => {
     });
 });
 
+// Add get route to show individual recipe
+
+app.get('/api/recipes/:id', (req, res, next) => {
+  Recipe.findOne({ _id: req.params.id })
+    .then(recipe => {
+      res.status(200).json(recipe);
+    })
+    .catch(error => {
+      res.status(404).json({
+        error: error
+      });
+    });
+});
+
 module.exports = app;
